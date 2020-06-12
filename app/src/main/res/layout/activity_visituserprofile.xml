@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.VisituserprofileActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardvisit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:elevation="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/coverimagevisit"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="#C8E8C9"
+                android:scaleType="centerCrop"
+                />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileimagevisit"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_person"
+                android:layout_marginTop="140dp"/>
+            <TextView
+                android:id="@+id/usernamevisit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:layout_margin="12dp"
+                android:layout_below="@id/profileimagevisit"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/cardvisit"
+        android:gravity="center"
+        android:id="@+id/linearvisit">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/facebookvisit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/facebook"
+            android:scaleType="centerCrop"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/instagramvisit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/instagram"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/webistevisit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/google"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/sendmessagevisit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/linearvisit"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:text="Send Message"
+        android:textAllCaps="false"/>
+
+
+</RelativeLayout>
