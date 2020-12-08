@@ -80,7 +80,7 @@ class SettingsFragment : Fragment() {
         })
         profileimage.setOnClickListener{
             val options= arrayOf<CharSequence>(
-                "view full image","set another image"
+                "view full image","set another image","cancel"
             )
             val dialog=androidx.appcompat.app.AlertDialog.Builder(requireContext())
             dialog.setTitle("Choose one of them")
@@ -88,7 +88,7 @@ class SettingsFragment : Fragment() {
                 when(i){
                     0->{
                         val intent = Intent(requireContext(), ViewfullimageActivity::class.java)
-                        intent.putExtra("url",userup!!.getprofileurl() )
+                        intent.putExtra("url",userup!!.getcoverurl())
                         requireContext().startActivity(intent)
                     }
                     1->{
@@ -129,7 +129,6 @@ class SettingsFragment : Fragment() {
             })
             dialog.create()
             dialog.show()
-
         }
         username.setOnClickListener {
             socialchecker="username"

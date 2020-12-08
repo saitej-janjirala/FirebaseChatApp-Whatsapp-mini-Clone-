@@ -106,6 +106,11 @@ class Messagechat : AppCompatActivity() {
             }
             textmessage.text=null
         }
+        toolbar.setOnClickListener {
+            val intent=Intent(this,VisituserprofileActivity::class.java)
+            intent.putExtra("uid",visituid)
+            startActivity(intent)
+        }
     }
     private fun retrievemessages(msenderid: String?,mrecieverid: String, mprofileurl: String?) {
         arraylist= ArrayList()
