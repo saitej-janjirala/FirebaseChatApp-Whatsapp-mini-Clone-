@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="fontFamily">@font/monsterrat</item>
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="font">@font/lato_regular</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -22,7 +23,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="fontFamily">@font/monsterrat</item>
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="font">@font/lato_regular</item>
     </style>
     <style name="TabtextTheme" parent="TextAppearance.Design.Tab">
         <item name="android:textStyle">bold</item>

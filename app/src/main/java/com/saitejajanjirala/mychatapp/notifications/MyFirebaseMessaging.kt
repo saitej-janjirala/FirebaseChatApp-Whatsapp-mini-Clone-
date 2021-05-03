@@ -24,10 +24,8 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
         super.onMessageReceived(p0)
         val sented=p0.data["sented"]
         val user=p0.data["user"]
-
-        val pref=getSharedPreferences("user", Context.MODE_PRIVATE)
-        if(pref.contains("uid")){
-            val uid=pref.getString("uid","")
+        if(FirebaseAuth.getInstance().currentUser!=null){
+            val uid=FirebaseAuth.getInstance().currentUser.uid
             if(uid==sented){
                 if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
                     sendoreonotification(p0)

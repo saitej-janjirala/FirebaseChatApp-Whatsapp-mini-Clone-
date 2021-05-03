@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SplashScreen"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#99D1F4BF">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/splashimage"
-        android:layout_width="150dp"
-        android:src="@drawable/splashpic"
-        android:layout_height="150dp"/>
-    <TextView
-        android:id="@+id/splashtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome "
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:textSize="25sp"
-        android:layout_margin="20dp"/>
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Your data is safe here"
-    android:textStyle="bold"
-    android:textColor="@color/colorPrimaryDark"
-    android:textSize="15sp"
-    android:layout_margin="20dp"/>
+    android:background="#99ADD6EC">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/splashimage"
+            android:layout_width="wrap_content"
+            android:src="@drawable/splashpic"
+            android:padding="20dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/splashtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome "
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            android:layout_margin="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your data is safe here"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_margin="20dp"/>
+    </LinearLayout>
 
-</LinearLayout>
+    <include
+        android:id="@+id/progress_layout"
+        layout="@layout/progress_layout"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

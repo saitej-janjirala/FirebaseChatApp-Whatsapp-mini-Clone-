@@ -1,9 +1,9 @@
 package com.saitejajanjirala.mychatapp.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,24 +11,23 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.saitejajanjirala.mychatapp.R
-import com.saitejajanjirala.mychatapp.activities.Messagechat
 import com.saitejajanjirala.mychatapp.activities.ViewfullimageActivity
-import com.saitejajanjirala.mychatapp.models.Chat
+import com.saitejajanjirala.mychatapp.model.Chat
+import com.saitejajanjirala.mychatapp.models.Chats
+import com.saitejajanjirala.mychatapp.utils.Keys
+import com.saitejajanjirala.mychatapp.utils.Utils
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.messageitemleft.view.*
-import org.w3c.dom.Text
 
-class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageurl:String):
+class ChatsAdapter(val context:Context,val senderUid:String,val receiverUid:String, val chatlist:ArrayList<Chat>, val mimageurl:String?):
     RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
     private var msenderuid:String?=null
     private var imageurl:String?=null
     init {
-        msenderuid=context.getSharedPreferences("user",Context.MODE_PRIVATE).getString("uid","").toString()
+        msenderuid=senderUid
         imageurl=mimageurl
     }
     class ChatViewHolder(view:View):RecyclerView.ViewHolder(view){
@@ -64,27 +63,31 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         try {
-            Picasso.get().load(imageurl).error(R.drawable.ic_person).into(holder.profileimage)
+            Picasso.get()
+                .load(imageurl)
+                .error(R.drawable.ic_person)
+                .placeholder(R.drawable.ic_person)
+                .into(holder.profileimage)
             val chat = chatlist[position]
 
-            if(!chat.geturl().equals("")){
-                if (chat.getsender().equals(msenderuid)) {
+            if(chat.imageurl!=null){
+                if (chat.senderid.equals(msenderuid)) {
                         holder.textmessage!!.visibility = View.GONE
                         holder.rightimageView!!.visibility = View.VISIBLE
-                        Picasso.get().load(chat.geturl()).error(R.drawable.ic_person).into(holder.rightimageView)
+                        Picasso.get().load(chat.imageurl).error(R.drawable.ic_person).into(holder.rightimageView)
                         holder.rightimageView!!.setOnClickListener {
                             val options=arrayOf<CharSequence>(
                                 "view full image",
                                 "delete image","cancel"
                             )
-                            val builder=AlertDialog.Builder(holder.itemView.context)
+                            val builder= AlertDialog.Builder(holder.itemView.context)
                             builder.setTitle("What do you want?")
-                            builder.setItems(options,DialogInterface.OnClickListener {
+                            builder.setItems(options, DialogInterface.OnClickListener {
                             dialog,which->
                                 when(which){
                                     0->{
-                                        val intent=Intent(context,ViewfullimageActivity::class.java)
-                                        intent.putExtra("url",chat.geturl())
+                                        val intent= Intent(context, ViewfullimageActivity::class.java)
+                                        intent.putExtra("url",chat.imageurl)
                                         context.startActivity(intent)
                                     }
                                     1->{
@@ -98,7 +101,7 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
                 } else {
                         holder.textmessage!!.visibility = View.GONE
                         holder.leftimageview!!.visibility = View.VISIBLE
-                        Picasso.get().load(chat.geturl()).error(R.drawable.ic_person)
+                        Picasso.get().load(chat.imageurl).error(R.drawable.ic_person)
                             .into(holder.leftimageview)
                     holder.leftimageview!!.setOnClickListener {
                         val builder = AlertDialog.Builder(holder.itemView.context)
@@ -111,7 +114,7 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
                             when (which) {
                                 0 -> {
                                     val intent = Intent(context, ViewfullimageActivity::class.java)
-                                    intent.putExtra("url", chat.geturl())
+                                    intent.putExtra("url", chat.imageurl)
                                     context.startActivity(intent)
                                 }
                             }
@@ -123,8 +126,8 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
                 }
             }
             else{
-                holder.textmessage!!.text=chat.getmessage()
-                if (chat.getsender().equals(msenderuid)) {
+                holder.textmessage!!.text=chat.message
+                if (chat.senderid.equals(msenderuid)) {
                     holder.textmessage!!.setOnClickListener {
                         val options = arrayOf<CharSequence>(
                             "delete message", "cancel"
@@ -144,9 +147,9 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
                 }
             }
             if (position == chatlist.size - 1 ) {
-                if (chat.getisseen()!!) {
+                if (chat.seen) {
                     holder.textseen!!.text = "Seen"
-                    if (chat.geturl().equals("")) {
+                    if (chat.imageurl==null) {
                         val lp: RelativeLayout.LayoutParams? =
                             holder.textseen!!.layoutParams as RelativeLayout.LayoutParams
                         lp!!.setMargins(0, 245, 10, 0)
@@ -154,7 +157,7 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
                     }
                 } else {
                     holder.textseen!!.text = "Sent"
-                    if (chat.geturl().equals("")) {
+                    if (chat.imageurl==null) {
                         val lp: RelativeLayout.LayoutParams? =
                             holder.textseen!!.layoutParams as RelativeLayout.LayoutParams
                         lp!!.setMargins(0, 245, 10, 0)
@@ -170,7 +173,7 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(chatlist[position].getsender().equals(msenderuid)){
+        return if(chatlist[position].senderid.equals(msenderuid)){
             1
         }
         else{
@@ -178,10 +181,11 @@ class ChatsAdapter(val context:Context,val chatlist:ArrayList<Chat>,val mimageur
         }
     }
     private fun deletesendmessage(position:Int,holder:ChatsAdapter.ChatViewHolder){
-        val ref=FirebaseDatabase.getInstance().reference.child("chats")
-            .child(chatlist[position].getmessageid()!!)
-            .removeValue()
-            .addOnSuccessListener {
+        val ref=Utils.getRef(senderUid,receiverUid)
+            FirebaseFirestore.getInstance().collection(Keys.CHATS)
+                .document(ref).collection(Keys.MESSAGES).document(chatlist.get(position).chatid!!)
+                .update(Keys.DELETED,true)
+                .addOnSuccessListener {
                 Toast.makeText(context,"Message deleted",Toast.LENGTH_LONG).show()
             }
             .addOnFailureListener {

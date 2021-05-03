@@ -35,11 +35,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimaryDark"
+                tools:text="Saiteja"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_margin="12dp"
+                android:layout_below="@id/profileimagevisit"/>
+            <TextView
+                android:id="@+id/user_number_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_centerHorizontal="true"
                 android:maxLines="1"
-                android:layout_margin="12dp"
-                android:layout_below="@id/profileimagevisit"/>
+                android:textColor="@color/colorPrimary"
+                tools:text="999999999"
+                android:layout_marginBottom="12dp"
+                android:layout_below="@id/usernamevisit"/>
+
 
         </RelativeLayout>
 
@@ -78,7 +95,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/google"
+            android:src="@drawable/ic_email"
             />
     </LinearLayout>
     <Button

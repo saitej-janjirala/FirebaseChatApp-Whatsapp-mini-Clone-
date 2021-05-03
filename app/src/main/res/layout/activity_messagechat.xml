@@ -10,17 +10,16 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
         android:id="@+id/appbarchart">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_mainchat"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_imagechat"
                 android:layout_width="32dp"
+                android:background="@drawable/bg_white_circular"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_person"
                 />

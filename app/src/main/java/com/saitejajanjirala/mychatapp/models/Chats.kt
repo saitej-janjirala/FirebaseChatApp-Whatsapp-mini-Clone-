@@ -1,6 +1,6 @@
 package com.saitejajanjirala.mychatapp.models
 
-class ChatList {
+class Chats {
     private var id:String?=null
     constructor()
     constructor(id: String?) {

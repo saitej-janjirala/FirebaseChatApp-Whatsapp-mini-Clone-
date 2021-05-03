@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 
 class Connectivity(val context:Context) {
-    fun checkconnectivity():Boolean{
+    fun checkConnectivity():Boolean{
         val connectivityManager=context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activenetworkinfo:NetworkInfo ?= connectivityManager.activeNetworkInfo
         if(activenetworkinfo?.isConnected!=null){
@@ -20,7 +20,7 @@ class Connectivity(val context:Context) {
             return false
         }
     }
-    fun showdialog(){
+    fun showDialog(){
             val dialog= AlertDialog.Builder(context)
             dialog.setTitle("Error")
             dialog.setMessage("No Internet Connection")
